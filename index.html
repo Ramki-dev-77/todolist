@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+</head>
+<style>
+    body{
+        background:darkblue;
+        padding: 5px;
+    }
+    h1{
+        color: white;
+    }
+    #add{
+        padding: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: rgb(255, 98, 0);
+        color: white;
+        border: 2px solid white;
+        border-radius: 10px;
+    }
+    #add:hover{
+        opacity: 0.8;
+    }
+    #add:active{
+        background-color: rgb(16, 172, 16);
+    }
+    input{
+        height: 40px;
+        width: 70%;
+        font-size: 18px;
+    }
+    .btn-holder{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        padding-right: 10px;
+    }
+    .btn-holder button{
+        column-gap: 10px;
+    }    
+    .holder{
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        flex-direction: column;
+    }
+    h2{
+        padding-left: 5px;
+        color: white;
+        left: 0;
+        bottom: 0;
+        position: fixed;
+    }
+    .para{
+        width: 80%;
+        font-size: 23px;
+        overflow:hidden;
+        padding-left: 10px;
+        white-space: nowrap; 
+        text-overflow: ellipsis;
+    }
+    .editBtn{
+            font-size: 20px;
+            color: white;
+    }
+    .delBtn{
+            font-size: 20px;
+            color: white;
+            background-color: rgb(203, 0, 0);
+    }
+    .container{
+        background-color: rgb(0, 255, 136);
+    }   
+
+    @media screen and (max-width : 400px){
+        .para{
+            font-size: 15px;
+            width: 80%;
+            overflow:hidden;
+            padding-left: 10px;
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+        .editBtn{
+            font-size: 15px;
+        }
+        .delBtn{
+            font-size: 15px;
+        }
+        
+    }
+</style>
+<body>
+    <h1>To Do List</h1>
+    <input type="text" id="task" placeholder="Add Your Task" required>
+    <button type="submit" id="add" onclick="append()">Add</button>
+    <br><br>
+    <div class="holder" id="holder">
+    </div>
+    <!-- <h2>Application Built By Ramkishore😊!!!</h2> -->
+<script>
+    function append(){
+        const holder = document.getElementById("holder");
+        const container = document.createElement("div");
+        container.className = "container";
+        const btn_holder = document.createElement("div");
+        btn_holder.className = "btn-holder";
+
+        const node = document.createElement("p");
+        node.className = "para"
+        const btn = document.createElement("button");
+        btn.className = "delBtn";
+        const editBtn = document.createElement("button");
+        editBtn.className = "editBtn";
+
+        const taskInput = document.getElementById("task");
+        const task = taskInput.value;
+
+        editBtn.innerText = "Edit";
+        btn.innerText = "Delete";
+
+        btn.style.height = "min-content";
+        editBtn.style.height = "min-content";
+
+        if(task == ""){
+            alert("Task should not be empty");
+        }
+        else{
+            container.style.border = "1px solid black";
+            container.style.width = "100%";
+            container.style.display = "flex";
+            container.style.justifyContent = "space-between"; 
+            container.style.alignItems = "center";
+            container.style.color = "black";
+
+            btn.style.height = "30px";
+            // btn.style.background = "tomato";
+            btn.style.border = "none";
+            btn.style.borderRadius = "10px";
+            btn.style.cursor = "pointer";
+
+            editBtn.style.height = "30px";
+            editBtn.style.padding = "0px 15px 0px 15px";
+            editBtn.style.background = "darkgreen";
+            editBtn.style.border = "none";
+            editBtn.style.borderRadius = "10px";
+            editBtn.style.cursor = "pointer";
+
+            const textNode = document.createTextNode(task);
+            node.appendChild(textNode);
+
+            container.appendChild(node);
+            btn_holder.appendChild(editBtn);
+            btn_holder.appendChild(btn);
+
+            container.appendChild(btn_holder)
+            holder.appendChild(container);
+
+            taskInput.value = "";
+
+        }
+        btn.onclick = function(){
+            holder.removeChild(container);
+        }
+        editBtn.onclick = function(){
+            taskInput.value = task;
+            holder.removeChild(container);
+        }
+    }
+    
+</script>
+</body>
+</html>
